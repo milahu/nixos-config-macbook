@@ -69,7 +69,7 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   boot = {
-    cleanTmpDir = true;
+    tmp.cleanOnBoot = true;
     #kernelPackages = pkgs.linuxPackages_4_3;
     kernelParams = [
       # https://help.ubuntu.com/community/AppleKeyboard
