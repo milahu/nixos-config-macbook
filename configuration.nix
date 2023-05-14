@@ -266,6 +266,9 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     gnome.gnome-tweaks
     firefox
     qbittorrent
+    gimp
+    inkscape
+    libreoffice
     gparted # partition editor
     xclip # clipboard access
     unzip
