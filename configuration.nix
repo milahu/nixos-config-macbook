@@ -22,9 +22,9 @@ in
       ./hardware-configuration.nix
     ];
 
-  # we have only 2 cores
-  # limit nix-build to 1 core to avoid hanging the system
-  nix.settings.cores = 1;
+  # we have 4 cores
+  # limit nix-build to 3 cores to avoid hanging the system
+  nix.settings.cores = 3;
   nix.settings.max-jobs = 1;
 
   # https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/nixos/configuration.nix
