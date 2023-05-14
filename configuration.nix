@@ -65,6 +65,11 @@
 
   # Xfce
   services.xserver.desktopManager.xfce.enable = true;
+  # Xfce: fix small cursor on hidpi display
+  # https://github.com/NixOS/nixpkgs/issues/21442
+  #environment.variables.XCURSOR_PATH = "$HOME/.icons";
+  environment.profileRelativeEnvVars.XCURSOR_PATH = [ "/share/icons" ];
+  environment.sessionVariables.GTK_PATH = "${config.system.path}/lib/gtk-3.0:${config.system.path}/lib/gtk-2.0";
 
   # solve conflict between pantheon and plasma5
   #services.xserver.displayManager.defaultSession = "plasma";
