@@ -52,10 +52,11 @@
   #services.xserver.displayManager.gdm.enable = true;
 
   # Pantheon
-  services.xserver.displayManager.lightdm.enable = true;
+  # pretty desktop, but not as mature as KDE or Gnome
+  #services.xserver.displayManager.lightdm.enable = true;
 
   # KDE
-  #services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
 
   # Pantheon
   services.xserver.desktopManager.pantheon.enable = true;
