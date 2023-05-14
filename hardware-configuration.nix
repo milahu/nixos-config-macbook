@@ -26,6 +26,7 @@ rec {
   # https://nixos.wiki/wiki/Swap
   swapDevices = [
     {
+      # truncate -s 16G /var/swapfile
       device = "/var/swapfile";
       size = 16*1024; # 16 GB
       # better security
