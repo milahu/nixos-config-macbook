@@ -48,9 +48,33 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the Pantheon Desktop Environment.
+  # Pantheon
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.pantheon.enable = true;
+
+  # KDE
+  #services.xserver.displayManager.sddm.enable = true;
+
+  # Pantheon
+  #services.xserver.desktopManager.pantheon.enable = true;
+
+  # KDE
+  services.xserver.desktopManager.plasma5.enable = true;
+
+  # Gnome
+  #services.xserver.desktopManager.gnome.enable = true;
+
+  # Xfce
+  services.xserver.desktopManager.xfce.enable = true;
+
+  # solve conflict between pantheon and plasma5
+  #services.xserver.displayManager.defaultSession = "plasma";
+
+  # solve conflict between pantheon and gnome
+  #environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "/nix/store/mcfmxj7jmjz1m4dclrn4ln9xksbicikh-elementary-gsettings-desktop-schemas/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+  #environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "/nix/store/1dsy3g5rn7qp9p74k5j80s6ryaq1jd83-gnome-gsettings-overrides/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
+
+  # solve conflict between gnome? and plasma5
+  #programs.ssh.askPassword = true;
 
   # Configure keymap in X11
   services.xserver = {
