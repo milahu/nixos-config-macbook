@@ -30,7 +30,21 @@ in
   # https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/nixos/configuration.nix
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
-  nix.nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+  #nix.nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+/*
+error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PATH or -I)
+
+       at /nix/store/d0ddxbyalkfbxdbnfa6xprl8g87n8zn1-source/default.nix:1:17:
+
+            1| { pkgs ? import <nixpkgs> { }
+             |                 ^
+*/
+  # https://discourse.nixos.org/t/problems-after-switching-to-flake-system/24093
+  # https://discourse.nixos.org/t/correct-way-to-use-nixpkgs-in-nix-shell-on-flake-based-system-without-channels/19360
+  nix.nixPath = [
+    inputs.nixpkgs.outPath
+    "nixpkgs=${inputs.nixpkgs.outPath}"
+  ];
   # Enable flakes and new 'nix' command
   nix.settings.experimental-features = "nix-command flakes";
   # Deduplicate and optimize nix store
