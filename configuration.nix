@@ -5,6 +5,11 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
+/*
+FIXME
+trace: warning: rustPlatform.rust.cargo is deprecated. Use cargo instead.
+trace: warning: rustPlatform.rust.rustc is deprecated. Use rustc instead.
+*/
   nixos-conf-editor = import (pkgs.fetchFromGitHub {
     owner = "vlinkz";
     repo = "nixos-conf-editor";
