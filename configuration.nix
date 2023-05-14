@@ -68,6 +68,12 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  # Enable NTFS support
+  boot.supportedFilesystems = [
+    "ntfs" # microsoft windows
+    "apfs" # apple macos
+  ];
+
   boot = {
     tmp.cleanOnBoot = true;
     #kernelPackages = pkgs.linuxPackages_4_3;
@@ -179,6 +185,12 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # power management
+  # hibernate on empty battery, to avoid discharging battery to zero,
+  # which would destroy the battery.
+  # https://discourse.nixos.org/t/config-to-hibernate-when-battery-is-critically-low/2451/5
+  services.upower.criticalPowerAction = "Hibernate";
+
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -205,11 +217,6 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     description = "user";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
-    #  thunderbird
-      # fixme build fails
-      nixos-conf-editor
-      #nur.repos.mic92.hello-nur
     ];
   };
 
@@ -249,6 +256,7 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    nix-index
     wget
     vim
     git
@@ -256,6 +264,20 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     smartmontools # smartctl
     # https://www.linuxjournal.com/content/how-you-can-change-cursor-theme-your-ubuntu-desktop
     gnome.gnome-tweaks
+    firefox
+    qbittorrent
+    gparted # partition editor
+    xclip # clipboard access
+    unzip
+    unrar
+    p7zip
+    python3
+    nodejs
+    vscode-with-extensions
+    # fixme build fails
+    nixos-conf-editor
+    #nur.repos.mic92.hello-nur
+    #nur.repos.milahu.spotify-adblock # FIXME
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
