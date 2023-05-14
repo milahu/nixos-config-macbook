@@ -67,6 +67,7 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.timeout = 2; # default: 5 seconds
 
   # Enable NTFS support
   boot.supportedFilesystems = [
