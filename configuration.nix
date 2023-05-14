@@ -284,7 +284,6 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     abiword
 
     # markdown
-    marktext
     ghostwriter
 
     mixxx # DJ music player
