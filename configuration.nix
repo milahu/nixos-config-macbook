@@ -4,11 +4,25 @@
 
 { config, pkgs, ... }:
 
+let
+  nixos-conf-editor = import (pkgs.fetchFromGitHub {
+    owner = "vlinkz";
+    repo = "nixos-conf-editor";
+    rev = "0.1.1";
+    sha256 = "sha256-TeDpfaIRoDg01FIP8JZIS7RsGok/Z24Y3Kf+PuKt6K4=";
+  }) {};
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+  # we have only 2 cores
+  # limit nix-build to 1 core to avoid hanging the system
+  nix.settings.cores = 1;
+  nix.settings.max-jobs = 1;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -128,6 +142,8 @@
     packages = with pkgs; [
       firefox
     #  thunderbird
+      # fixme build fails
+      #nixos-conf-editor
     ];
   };
 
@@ -144,6 +160,9 @@
     wget
     vim
     git
+    htop
+    smartmontools # smartctl
+    gnome.gnome-tweaks
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
