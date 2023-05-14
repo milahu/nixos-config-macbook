@@ -23,7 +23,15 @@
       fsType = "vfat";
     };
 
-  swapDevices = [ ];
+  # https://nixos.wiki/wiki/Swap
+  swapDevices = [
+    {
+      device = "/var/swapfile";
+      size = 16*1024; # 16 GB
+      # better security
+      randomEncryption.enable = true;
+    }
+  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
