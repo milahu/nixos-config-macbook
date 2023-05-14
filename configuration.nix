@@ -48,6 +48,9 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
+  # Gnome
+  #services.xserver.displayManager.gdm.enable = true;
+
   # Pantheon
   services.xserver.displayManager.lightdm.enable = true;
 
@@ -55,16 +58,17 @@
   #services.xserver.displayManager.sddm.enable = true;
 
   # Pantheon
-  #services.xserver.desktopManager.pantheon.enable = true;
+  services.xserver.desktopManager.pantheon.enable = true;
 
   # KDE
-  services.xserver.desktopManager.plasma5.enable = true;
+  #services.xserver.desktopManager.plasma5.enable = true;
 
   # Gnome
   #services.xserver.desktopManager.gnome.enable = true;
 
   # Xfce
-  services.xserver.desktopManager.xfce.enable = true;
+  # fixme: no network
+  #services.xserver.desktopManager.xfce.enable = true;
   # Xfce: fix small cursor on hidpi display
   # https://github.com/NixOS/nixpkgs/issues/21442
   #environment.variables.XCURSOR_PATH = "$HOME/.icons";
