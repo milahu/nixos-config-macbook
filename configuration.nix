@@ -49,23 +49,25 @@
   services.xserver.enable = true;
 
   # Gnome
-  #services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
 
   # Pantheon
   # pretty desktop, but not as mature as KDE or Gnome
+  # scrolling is inverted, different for touchpad and mouse
+  # warning: Using Pantheon without LightDM as a displayManager will break screenlocking from the UI.
   #services.xserver.displayManager.lightdm.enable = true;
 
   # KDE
-  services.xserver.displayManager.sddm.enable = true;
+  #services.xserver.displayManager.sddm.enable = true;
 
   # Pantheon
-  services.xserver.desktopManager.pantheon.enable = true;
+  #services.xserver.desktopManager.pantheon.enable = true;
 
   # KDE
   #services.xserver.desktopManager.plasma5.enable = true;
 
   # Gnome
-  #services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
 
   # Xfce
   # fixme: no network
@@ -73,8 +75,8 @@
   # Xfce: fix small cursor on hidpi display
   # https://github.com/NixOS/nixpkgs/issues/21442
   #environment.variables.XCURSOR_PATH = "$HOME/.icons";
-  environment.profileRelativeEnvVars.XCURSOR_PATH = [ "/share/icons" ];
-  environment.sessionVariables.GTK_PATH = "${config.system.path}/lib/gtk-3.0:${config.system.path}/lib/gtk-2.0";
+  #environment.profileRelativeEnvVars.XCURSOR_PATH = [ "/share/icons" ];
+  #environment.sessionVariables.GTK_PATH = "${config.system.path}/lib/gtk-3.0:${config.system.path}/lib/gtk-2.0";
 
   # solve conflict between pantheon and plasma5
   #services.xserver.displayManager.defaultSession = "plasma";
@@ -83,8 +85,8 @@
   #environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "/nix/store/mcfmxj7jmjz1m4dclrn4ln9xksbicikh-elementary-gsettings-desktop-schemas/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
   #environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "/nix/store/1dsy3g5rn7qp9p74k5j80s6ryaq1jd83-gnome-gsettings-overrides/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
-  # solve conflict between gnome? and plasma5
-  #programs.ssh.askPassword = true;
+  # solve conflict between gnome and plasma5
+  #programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 
   # Configure keymap in X11
   services.xserver = {
