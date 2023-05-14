@@ -303,7 +303,16 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     nixos-conf-editor
     #nur.repos.mic92.hello-nur
     #nur.repos.milahu.spotify-adblock # FIXME
+
+    libsForQt5.qtstyleplugin-kvantum
+
   ];
+
+  environment.variables = {
+    # integrate qt with gnome
+    # https://discourse.nixos.org/t/how-to-fix-qt-themes-in-nixos/14495
+    "QT_STYLE_OVERRIDE" = lib.mkForce "kvantum";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
