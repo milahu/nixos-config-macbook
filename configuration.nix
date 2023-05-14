@@ -203,6 +203,11 @@ in
     ];
   };
 
+  # allow to install packages from flathub (for Gnome, etc)
+  # https://nixos.wiki/wiki/Flatpak
+  services.flatpak.enable = true;
+  fonts.fontDir.enable = true;
+
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "user";
