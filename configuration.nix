@@ -274,7 +274,15 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     qbittorrent
     gimp
     inkscape
-    libreoffice
+    #libreoffice-bin
+    abiword
+
+    # markdown
+    marktext
+    ghostwriter
+
+    mixxx # DJ music player
+
     gparted # partition editor
     xclip # clipboard access
     unzip
@@ -282,6 +290,8 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     p7zip
     python3
     nodejs
+    #pandoc
+    ffmpeg
     vscode-with-extensions
     # fixme build fails
     nixos-conf-editor
