@@ -54,6 +54,32 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  boot = {
+    cleanTmpDir = true;
+    #kernelPackages = pkgs.linuxPackages_4_3;
+    kernelParams = [
+      # https://help.ubuntu.com/community/AppleKeyboard
+      # https://wiki.archlinux.org/index.php/Apple_Keyboard
+      # fnmode:
+      # 0 = disabled: Disable the 'fn' key.
+      #     Pressing 'fn'+'F8' will behave like you only press 'F8'
+      # 1 = fkeyslast: Function keys are used as last key.
+      #     Pressing 'F8' key will act as a special key. Pressing 'fn'+'F8' will behave like a F8.
+      # 2 = fkeysfirst: Function keys are used as first key.
+      #     Pressing 'F8' key will behave like a F8.
+      #     Pressing 'fn'+'F8' will act as special key (play/pause). 
+      # 3 = auto (default)
+      #"hid_apple.fnmode=1"
+      #"hid_apple.fnmode=2"
+      # fix swapped keys and wrong keymaps for international (non-US) keyboards
+      #"hid_apple.iso_layout=0"
+      # swap cmd and Alt keys (PC layout)
+      #"hid_apple.swap_opt_cmd=1"
+      # Swap the Fn and L_Control keys (PC layout)
+      #"swap_fn_leftctrl=1"
+    ];
+  };
+
   networking.hostName = "macbook"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
