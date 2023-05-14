@@ -100,6 +100,12 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     ];
   };
 
+  # fix: grub error: switching console mode: unsupported
+  # https://communities.vmware.com/t5/Fusion-22H2-Tech-Preview/On-boot-quot-error-switching-console-mode-to-1-unsupported-quot/m-p/2895906
+  # https://github.com/NixOS/nixpkgs/issues/210070
+  # default: "keep"
+  boot.loader.systemd-boot.consoleMode = "0"; # Standard UEFI 80x25 mode
+
   networking.hostName = "macbook"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
