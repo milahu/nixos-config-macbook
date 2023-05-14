@@ -254,6 +254,7 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     git
     htop
     smartmontools # smartctl
+    # https://www.linuxjournal.com/content/how-you-can-change-cursor-theme-your-ubuntu-desktop
     gnome.gnome-tweaks
   ];
 
