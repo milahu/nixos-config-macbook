@@ -113,10 +113,6 @@ in
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # TODO hidpi
-  # use this instead of hardware.video.hidpi.enable
-  #fonts.fontconfig = TODO;
-
   # Gnome
   services.xserver.displayManager.gdm.enable = true;
 
@@ -206,7 +202,28 @@ in
   # allow to install packages from flathub (for Gnome, etc)
   # https://nixos.wiki/wiki/Flatpak
   services.flatpak.enable = true;
+
+  # https://nixos.wiki/wiki/Fonts
+  /*
+    ln -s /run/current-system/sw/share/X11/fonts ~/.local/share/fonts
+    flatpak --user override --filesystem=$HOME/.local/share/fonts
+    flatpak --user override --filesystem=$HOME/.icons
+  */
   fonts.fontDir.enable = true;
+  fonts.fonts = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    dina-font
+    proggyfonts
+  ];
+  # TODO hidpi?
+  # use this instead of hardware.video.hidpi.enable
+  #fonts.fontconfig = TODO;
 
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
