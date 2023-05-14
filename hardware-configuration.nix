@@ -30,6 +30,8 @@ rec {
       size = 16*1024; # 16 GB
       # better security
       # but this breaks hibernation
+      # fixme: setting this from true to false causes rebuild to fail:
+      # swapon: /var/swapfile: read swap header failed
       #randomEncryption.enable = true;
     }
   ];
