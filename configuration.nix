@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
   nixos-conf-editor = import (pkgs.fetchFromGitHub {
@@ -15,7 +15,10 @@ in
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      inputs.hardware.nixosModules.common-cpu-intel
+      #inputs.hardware.nixosModules.common-ssd # not found
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -23,6 +26,20 @@ in
   # limit nix-build to 1 core to avoid hanging the system
   nix.settings.cores = 1;
   nix.settings.max-jobs = 1;
+
+  # https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/nixos/configuration.nix
+  # This will additionally add your inputs to the system's legacy channels
+  # Making legacy nix commands consistent as well, awesome!
+  nix.nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+  # Enable flakes and new 'nix' command
+  nix.settings.experimental-features = "nix-command flakes";
+  # Deduplicate and optimize nix store
+  nix.settings.auto-optimise-store = true;
+  # TODO automate garbage collect
+
+  nixpkgs.overlays = [
+    inputs.nur.overlay
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -61,6 +78,10 @@ in
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+
+  # TODO hidpi
+  # use this instead of hardware.video.hidpi.enable
+  #fonts.fontconfig = TODO;
 
   # Gnome
   services.xserver.displayManager.gdm.enable = true;
@@ -144,6 +165,7 @@ in
     #  thunderbird
       # fixme build fails
       #nixos-conf-editor
+      #nur.repos.mic92.hello-nur
     ];
   };
 
@@ -176,7 +198,13 @@ in
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    #enable = true;
+    # Forbid root login through SSH.
+    settings.PermitRootLogin = "no";
+    # Use keys only. Remove if you want to SSH using password (not recommended)
+    settings.PasswordAuthentication = false;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
