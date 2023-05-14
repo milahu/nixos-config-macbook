@@ -3,7 +3,7 @@
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
 
-{
+rec {
   imports =
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
@@ -29,9 +29,32 @@
       device = "/var/swapfile";
       size = 16*1024; # 16 GB
       # better security
-      randomEncryption.enable = true;
+      # but this breaks hibernation
+      #randomEncryption.enable = true;
     }
   ];
+
+  # slow boot: waiting for device
+  #boot.resumeDevice = "/var/swapfile";
+  boot.resumeDevice = fileSystems."/".device;
+  boot.kernelParams = [
+    #"systemd.unified_cgroup_hierarchy=0" # ?
+    # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate
+    # filefrag -v /var/swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}'
+    "resume_offset=27383808"
+  ];
+
+  boot.kernel.sysctl = {
+
+    #"net.ipv4.tcp_syncookies" = false; # example
+
+    # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate
+    # Tip: You might want to decrease the swappiness for your swap file
+    # if the only purpose is to be able to hibernate and not expand RAM.
+    # https://wiki.archlinux.org/title/Swap#Swappiness
+    "vm.swappiness" = 10;
+
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
