@@ -194,7 +194,7 @@ in
       firefox
     #  thunderbird
       # fixme build fails
-      #nixos-conf-editor
+      nixos-conf-editor
       #nur.repos.mic92.hello-nur
     ];
   };
