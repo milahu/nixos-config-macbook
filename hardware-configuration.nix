@@ -26,9 +26,10 @@ rec {
   # https://nixos.wiki/wiki/Swap
   swapDevices = [
     {
-      # truncate -s 16G /var/swapfile
+      # dd if=/dev/zero of=/var/swapfile bs=1M count=16k status=progress
+      # mkswap /var/swapfile
       device = "/var/swapfile";
-      size = 16*1024; # 16 GB
+      size = 16*1024; # size in KiB -> 16 GiB
       # better security
       # but this breaks hibernation
       # fixme: setting this from true to false causes rebuild to fail:
@@ -44,7 +45,7 @@ rec {
     #"systemd.unified_cgroup_hierarchy=0" # ?
     # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate
     # filefrag -v /var/swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}'
-    "resume_offset=27383808"
+    "resume_offset=28389376"
   ];
 
   boot.kernel.sysctl = {
