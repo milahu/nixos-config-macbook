@@ -1,0 +1,19 @@
+after ...
+
+- shrinking the nixos partition
+- installing ubuntu on another partition
+
+$ ./rebuild.sh 
++ exec sudo nixos-rebuild switch --impure --print-build-logs --show-trace
+building the system configuration...
+Traceback (most recent call last):
+  File "/nix/store/cakhzjb09ws7d5546r3zcjk43ap074sj-systemd-boot", line 341, in <module>
+    main()
+  File "/nix/store/cakhzjb09ws7d5546r3zcjk43ap074sj-systemd-boot", line 262, in main
+    installed_out = subprocess.check_output(["/nix/store/qxdaiy6j3qasxrljvpdc8w1kxm2dzgkv-systemd-253.3/bin/bootctl", "--esp-path=/boot/efi", "status"], universal_newlines=True)
+  File "/nix/store/ysd0w2ffcn21snv39770gna78wcf524j-python3-3.10.11/lib/python3.10/subprocess.py", line 421, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+  File "/nix/store/ysd0w2ffcn21snv39770gna78wcf524j-python3-3.10.11/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/nix/store/qxdaiy6j3qasxrljvpdc8w1kxm2dzgkv-systemd-253.3/bin/bootctl', '--esp-path=/boot/efi', 'status']' returned non-zero exit status 1.
+warning: error(s) occurred while switching to the new configuration
