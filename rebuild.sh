@@ -2,4 +2,4 @@
 
 set -x
 
-exec nixos-rebuild switch --impure --print-build-logs --show-trace
+exec sudo nixos-rebuild switch --impure --print-build-logs --show-trace
