@@ -166,6 +166,9 @@
   # solve conflict between gnome and plasma5
   #programs.ssh.askPassword = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
 
+  # darling: run macos apps on linux
+  programs.darling.enable = true;
+
   # Configure keymap in X11
   services.xserver = {
     layout = "de";
