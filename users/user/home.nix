@@ -62,6 +62,10 @@ in
   */
 
   dconf.settings = {
+    "org/gnome/desktop/peripherals/touchpad" = {
+      # enable tap-to-click on apple touchpad
+      tap-to-click = true;
+    };
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = builtins.map (e: e.passthru.extensionUuid) gnomeExtensionsPkgs;
