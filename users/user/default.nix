@@ -6,7 +6,7 @@ in
 
 {
   config = {
-    #home-manager.users.${username} = import ./home.nix { inherit username; };
+    home-manager.users.${username} = import ./home.nix { inherit username; };
     /*
       home-manager.users.${username} = import ./home.nix {
       inherit username;
