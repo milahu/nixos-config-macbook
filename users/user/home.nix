@@ -65,13 +65,19 @@ in
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = builtins.map (e: e.passthru.extensionUuid) gnomeExtensionsPkgs;
+      # apps in gnome dash menu
       favorite-apps = [
         "firefox.desktop"
         "code.desktop"
-        "org.gnome.Terminal.desktop"
-        "spotify.desktop"
-        "virt-manager.desktop"
+        "org.gnome.Console.desktop"
+        #"spotify.desktop"
+        "spotify-adblock.desktop"
+        # TODO music player
+        #"virt-manager.desktop"
         "org.gnome.Nautilus.desktop"
+        "gnome-system-monitor.desktop"
+        "dev.vlinkz.NixosConfEditor.desktop"
+        "org.gnome.Settings.desktop"
       ];
     };
     "org/gnome/desktop/interface" = {
