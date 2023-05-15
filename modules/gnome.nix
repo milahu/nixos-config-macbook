@@ -27,6 +27,7 @@
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
       gnome.gnome-tweaks
+      gnome.gnome-disk-utility
     ];
     environment.variables = {
       # TODO better
