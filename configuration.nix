@@ -11,6 +11,7 @@
       #inputs.hardware.nixosModules.common-ssd # not found
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/services/networking/ngrok.nix
     ];
 
   # https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/nixos/configuration.nix
@@ -259,6 +260,15 @@
     settings.PermitRootLogin = "no";
     # Use keys only. Remove if you want to SSH using password (not recommended)
     settings.PasswordAuthentication = false;
+  };
+
+  # Enable ngrok client
+  services.ngrok = {
+    enable = true;
+    configFile = "/home/user/.config/ngrok/ngrok.yml";
+    args = [ "tcp" "22" ]; # SSH
+    user = "user";
+    group = "users";
   };
 
   # Open ports in the firewall.
