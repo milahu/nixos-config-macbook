@@ -27,11 +27,6 @@ in
       ./hardware-configuration.nix
     ];
 
-  # we have 4 cores
-  # limit nix-build to 3 cores to avoid hanging the system
-  nix.settings.cores = 3;
-  nix.settings.max-jobs = 1;
-
   # https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/nixos/configuration.nix
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
@@ -223,15 +218,6 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.user = {
-    isNormalUser = true;
-    description = "user";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    ];
-  };
-
   # allow to install packages from flathub (for Gnome, etc)
   # https://nixos.wiki/wiki/Flatpak
   services.flatpak.enable = true;
@@ -268,14 +254,14 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    nix-index
+    nix-index # find nix packages by content
+    nixpkgs-fmt # code formatter for nix files
     wget
     vim
     git
     htop
     smartmontools # smartctl
     # https://www.linuxjournal.com/content/how-you-can-change-cursor-theme-your-ubuntu-desktop
-    gnome.gnome-tweaks
     firefox
     qbittorrent
     gimp
@@ -295,6 +281,7 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     p7zip
     python3
     nodejs
+    jq # json query
     #pandoc
     ffmpeg
     vscode-with-extensions
@@ -303,15 +290,14 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     #nur.repos.mic92.hello-nur
     #nur.repos.milahu.spotify-adblock # FIXME
 
+    # TODO better
     libsForQt5.qtstyleplugin-kvantum
 
+    imagemagick
+    libjpeg # jpegtran
+    screen
+    yt-dlp # youtube downloader
   ];
-
-  environment.variables = {
-    # integrate qt with gnome
-    # https://discourse.nixos.org/t/how-to-fix-qt-themes-in-nixos/14495
-    "QT_STYLE_OVERRIDE" = lib.mkForce "kvantum";
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

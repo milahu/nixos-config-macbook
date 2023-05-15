@@ -13,6 +13,13 @@ rec {
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
+  # we have 4 cores
+  # limit nix-build to 3 cores to avoid hanging the system
+  # (actually, the system did hang because out-of-memory
+  # which is solved by adding swap)
+  nix.settings.cores = 3;
+  nix.settings.max-jobs = 1;
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/d8575da4-83d8-43f2-ae94-cfb8e277cad3";
       fsType = "ext4";

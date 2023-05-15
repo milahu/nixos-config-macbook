@@ -1,6 +1,7 @@
 /*
 based on
 https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/flake.nix
+https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
 */
 
 {
@@ -10,10 +11,11 @@ https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/flake.nix
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    # TODO use more?
     hardware.url = "github:nixos/nixos-hardware";
 
-    # TODO use nix-colors
-    nix-colors.url = "github:misterio77/nix-colors";
+    # 16 colors scheme for terminal
+    #nix-colors.url = "github:misterio77/nix-colors";
 
     # Home manager
     home-manager.url = "github:nix-community/home-manager";
@@ -31,7 +33,20 @@ https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/flake.nix
     # nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... } @ inputs: {
+
+    nixosModules = {
+        #gnome = import ./modules/gnome.nix { inherit (nixpkgs) pkgs lib; };
+        gnome = ./modules/gnome.nix;
+        declarativeHome = { ... }: {
+          config = {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+          };
+        };
+        users-user = ./users/user;
+    };
+
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
@@ -40,7 +55,13 @@ https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/flake.nix
       nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; }; # Pass flake inputs to our config
         # > Our main nixos configuration file <
-        modules = [
+        modules = with self.nixosModules; [
+          { config = { nix.registry.nixpkgs.flake = nixpkgs; }; }
+          home-manager.nixosModules.home-manager
+          gnome
+          declarativeHome
+          users-user
+          # TODO split into modules
           ./configuration.nix#
         ];
       };
