@@ -5,12 +5,12 @@
 let
   gnomeExtensionsPkgs = with pkgs.gnomeExtensions; [
     # nix eval --impure --json --expr 'with import <nixpkgs> {}; builtins.attrNames pkgs.gnomeExtensions'
-    user-themes
-    tray-icons-reloaded
-    vitals
-    dash-to-panel
-    sound-output-device-chooser
-    space-bar
+    #user-themes
+    #tray-icons-reloaded
+    #vitals
+    #dash-to-panel
+    #sound-output-device-chooser
+    #space-bar
   ];
 in
 
