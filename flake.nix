@@ -54,15 +54,14 @@
       macbook =
         nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; }; # Pass flake inputs to our config
-          # > Our main nixos configuration file <
           modules = with self.nixosModules; [
             { config = { nix.registry.nixpkgs.flake = nixpkgs; }; }
-            home-manager.nixosModules.home-manager
+            #home-manager.nixosModules.home-manager
+            #declarativeHome
             gnome
-            declarativeHome
             users-user
             # TODO split into modules
-            ./configuration.nix #
+            ./configuration.nix
           ];
         };
     };
