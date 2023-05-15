@@ -54,12 +54,12 @@ in
 
   home.sessionVariables.GTK_THEME = "palenight";
 
-/*
-most GNOME settings exist in dconf.
-Run `dconf watch /`
-and set whatever option you're looking
-to declaratively persist, and observe the output.
-*/
+  /*
+    most GNOME settings exist in dconf.
+    Run `dconf watch /`
+    and set whatever option you're looking
+    to declaratively persist, and observe the output.
+  */
 
   dconf.settings = {
     "org/gnome/shell" = {

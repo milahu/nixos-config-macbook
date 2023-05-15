@@ -1,7 +1,7 @@
 /*
-based on
-https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/flake.nix
-https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
+  based on
+  https://github.com/Misterio77/nix-starter-configs/blob/main/minimal/flake.nix
+  https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
 */
 
 {
@@ -36,15 +36,15 @@ https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
   outputs = { self, nixpkgs, home-manager, ... } @ inputs: {
 
     nixosModules = {
-        #gnome = import ./modules/gnome.nix { inherit (nixpkgs) pkgs lib; };
-        gnome = ./modules/gnome.nix;
-        declarativeHome = { ... }: {
-          config = {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-          };
+      #gnome = import ./modules/gnome.nix { inherit (nixpkgs) pkgs lib; };
+      gnome = ./modules/gnome.nix;
+      declarativeHome = { ... }: {
+        config = {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
         };
-        users-user = ./users/user;
+      };
+      users-user = ./users/user;
     };
 
     # NixOS configuration entrypoint
@@ -52,19 +52,19 @@ https://hoverbear.org/blog/declarative-gnome-configuration-in-nixos/
     nixosConfigurations = {
       # hostname
       macbook =
-      nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; }; # Pass flake inputs to our config
-        # > Our main nixos configuration file <
-        modules = with self.nixosModules; [
-          { config = { nix.registry.nixpkgs.flake = nixpkgs; }; }
-          home-manager.nixosModules.home-manager
-          gnome
-          declarativeHome
-          users-user
-          # TODO split into modules
-          ./configuration.nix#
-        ];
-      };
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          # > Our main nixos configuration file <
+          modules = with self.nixosModules; [
+            { config = { nix.registry.nixpkgs.flake = nixpkgs; }; }
+            home-manager.nixosModules.home-manager
+            gnome
+            declarativeHome
+            users-user
+            # TODO split into modules
+            ./configuration.nix #
+          ];
+        };
     };
 
     # Standalone home-manager configuration entrypoint

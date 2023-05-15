@@ -5,7 +5,8 @@
 
 rec {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
@@ -21,12 +22,14 @@ rec {
   nix.settings.max-jobs = 1;
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/d8575da4-83d8-43f2-ae94-cfb8e277cad3";
+    {
+      device = "/dev/disk/by-uuid/d8575da4-83d8-43f2-ae94-cfb8e277cad3";
       fsType = "ext4";
     };
 
   fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-uuid/4804-675E";
+    {
+      device = "/dev/disk/by-uuid/4804-675E";
       fsType = "vfat";
     };
 
@@ -36,7 +39,7 @@ rec {
       # dd if=/dev/zero of=/var/swapfile bs=1M count=16k status=progress
       # mkswap /var/swapfile
       device = "/var/swapfile";
-      size = 16*1024; # size in KiB -> 16 GiB
+      size = 16 * 1024; # size in KiB -> 16 GiB
       # better security
       # but this breaks hibernation
       # fixme: setting this from true to false causes rebuild to fail:

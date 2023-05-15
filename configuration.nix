@@ -5,17 +5,19 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-/*
-FIXME
-trace: warning: rustPlatform.rust.cargo is deprecated. Use cargo instead.
-trace: warning: rustPlatform.rust.rustc is deprecated. Use rustc instead.
-*/
-  nixos-conf-editor = import (pkgs.fetchFromGitHub {
-    owner = "vlinkz";
-    repo = "nixos-conf-editor";
-    rev = "0.1.1";
-    sha256 = "sha256-TeDpfaIRoDg01FIP8JZIS7RsGok/Z24Y3Kf+PuKt6K4=";
-  }) {};
+  /*
+    FIXME
+    trace: warning: rustPlatform.rust.cargo is deprecated. Use cargo instead.
+    trace: warning: rustPlatform.rust.rustc is deprecated. Use rustc instead.
+  */
+  nixos-conf-editor = import
+    (pkgs.fetchFromGitHub {
+      owner = "vlinkz";
+      repo = "nixos-conf-editor";
+      rev = "0.1.1";
+      sha256 = "sha256-TeDpfaIRoDg01FIP8JZIS7RsGok/Z24Y3Kf+PuKt6K4=";
+    })
+    { };
 in
 
 {
@@ -31,14 +33,14 @@ in
   # This will additionally add your inputs to the system's legacy channels
   # Making legacy nix commands consistent as well, awesome!
   #nix.nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-/*
-error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PATH or -I)
+  /*
+    error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PATH or -I)
 
        at /nix/store/d0ddxbyalkfbxdbnfa6xprl8g87n8zn1-source/default.nix:1:17:
 
             1| { pkgs ? import <nixpkgs> { }
              |                 ^
-*/
+  */
   # https://discourse.nixos.org/t/problems-after-switching-to-flake-system/24093
   # https://discourse.nixos.org/t/correct-way-to-use-nixpkgs-in-nix-shell-on-flake-based-system-without-channels/19360
   nix.nixPath = [
@@ -124,7 +126,7 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
   i18n.defaultLocale = "de_DE.UTF-8";
 
   /*
-  i18n.extraLocaleSettings = {
+    i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
     LC_IDENTIFICATION = "de_DE.UTF-8";
     LC_MEASUREMENT = "de_DE.UTF-8";
@@ -134,7 +136,7 @@ error: file 'nixpkgs' was not found in the Nix search path (add it using $NIX_PA
     LC_PAPER = "de_DE.UTF-8";
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
-  };
+    };
   */
 
   # Enable the X11 windowing system.
