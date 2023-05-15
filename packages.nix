@@ -94,4 +94,8 @@ with pkgs; [
   # SSH without port-forwarding
   # https://superuser.com/a/1506237
   #ngrok # moved to services.ngrok
+
+  # https://stackoverflow.com/questions/286419/how-to-build-a-dmg-mac-os-x-file-on-a-non-mac-platform
+  hfsprogs # mkfs.hfsplus # apple filesystem
+  cdrkit # genisoimage # generate dmg image files
 ]
