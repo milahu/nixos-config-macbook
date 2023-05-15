@@ -106,4 +106,19 @@ in
     palenight-theme
   ]);
 
+  /*
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode;
+    extensions = with pkgs.vscode-extensions; [
+      # nix eval --impure --json --expr 'with import <nixpkgs> {}; builtins.attrNames pkgs.vscode-extensions'
+      #bbenoist.Nix
+      #justusadam.language-haskell
+    ];
+    userSettings = {
+      "terminal.integrated.fontFamily" = "Hack";
+    };
+  };
+  */
+
 }
