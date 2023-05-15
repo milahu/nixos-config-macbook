@@ -53,8 +53,7 @@ with pkgs; [
   #pandoc
   ffmpeg
   vscode-with-extensions
-  # fixme build fails
-  nixos-conf-editor
+  #nixos-conf-editor
   #nur.repos.mic92.hello-nur
   #nur.repos.milahu.spotify-adblock # FIXME
 
