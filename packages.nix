@@ -51,6 +51,8 @@ with pkgs; [
 
   mixxx # DJ music player
 
+  mpv # video player
+
   gparted # partition editor
   xclip # clipboard access
   unzip
@@ -89,7 +91,7 @@ with pkgs; [
   # it works in "big picture" mode (fullscreen)
   steam # games
 
-  darling-dmg
+  darling-dmg # run macos apps on linux
 
   # wine: run windows programs on linux
   # support both 32- and 64-bit applications
