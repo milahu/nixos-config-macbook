@@ -292,6 +292,16 @@
     #pulseaudio.support32Bit = true;
   };
 
+  # https://nixos.wiki/wiki/Environment_variables
+  environment.sessionVariables = rec {
+    # Not officially in the specification
+    #XDG_BIN_HOME = "$HOME/.local/bin";
+    XDG_BIN_HOME = "$HOME/bin";
+    PATH = [
+      XDG_BIN_HOME
+    ];
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
