@@ -19,6 +19,14 @@ let
       sha256 = "sha256-TeDpfaIRoDg01FIP8JZIS7RsGok/Z24Y3Kf+PuKt6K4=";
     })
     { };
+
+  nix-software-center = import (pkgs.fetchFromGitHub {
+    owner = "vlinkz";
+    repo = "nix-software-center";
+    rev = "0.1.2";
+    sha256 = "xiqF1mP8wFubdsAQ1BmfjzCgOD3YZf7EGWl9i69FTls=";
+  }) {};
+
 in
 
 with pkgs; [
@@ -55,6 +63,12 @@ with pkgs; [
   ffmpeg
   vscode-with-extensions
   #nixos-conf-editor
+
+  # snowflakeOS apps
+  # https://discourse.nixos.org/t/snowflakeos-creating-a-gui-focused-nixos-based-distro/21856
+  # https://snowflakeos.org/
+  nix-software-center
+
   #nur.repos.mic92.hello-nur
   #nur.repos.milahu.spotify-adblock # FIXME
 
