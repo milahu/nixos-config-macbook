@@ -57,9 +57,11 @@
           # > Our main nixos configuration file <
           modules = with self.nixosModules; [
             { config = { nix.registry.nixpkgs.flake = nixpkgs; }; }
-            home-manager.nixosModules.home-manager
+
+            # home-manager is too complicated for single-user installation
+            #home-manager.nixosModules.home-manager declarativeHome
+
             gnome
-            declarativeHome
             users-user
             # TODO split into modules
             ./configuration.nix #
