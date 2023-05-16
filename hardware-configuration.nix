@@ -39,7 +39,7 @@ rec {
       # dd if=/dev/zero of=/var/swapfile bs=1M count=16k status=progress
       # mkswap /var/swapfile
       device = "/var/swapfile";
-      size = 16 * 1024; # size in KiB -> 16 GiB
+      size = 16 * 1024; # size in MiB -> 16 GiB
       # better security
       # but this breaks hibernation
       # fixme: setting this from true to false causes rebuild to fail:
