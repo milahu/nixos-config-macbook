@@ -36,7 +36,13 @@
   nix.settings.experimental-features = "nix-command flakes";
   # Deduplicate and optimize nix store
   nix.settings.auto-optimise-store = true;
-  # TODO automate garbage collect
+
+  # automatic garbage collection
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
 
   nix.settings.substituters = [
     "https://nix-community.cachix.org"
