@@ -1,5 +1,10 @@
 { pkgs, lib, ... }:
 
+let
+  gnomeExtensionsPkgs = import ./gnome-extensions.nix { inherit pkgs; };
+  gnomePackages = import ./gnome-packages.nix { inherit pkgs; };
+in
+
 {
   config = {
     services.xserver.enable = true;
@@ -7,6 +12,7 @@
     services.xserver.desktopManager.gnome.enable = true;
     # remove packages
     environment.gnome.excludePackages = (with pkgs; [
+      gnome.gnome-software # prefer nix-software-center
       gnome-photos
       gnome-tour
     ]) ++ (with pkgs.gnome; [
@@ -25,10 +31,15 @@
       gnome-initial-setup
     ]);
     programs.dconf.enable = true;
-    environment.systemPackages = with pkgs; [
-      gnome.gnome-tweaks
-      gnome.gnome-disk-utility
-    ];
+    environment.systemPackages = (
+      gnomePackages
+      ++
+      gnomeExtensionsPkgs
+      ++
+      (with pkgs; [
+        gnome-browser-connector # https://extensions.gnome.org/
+      ])
+    );
     environment.variables = {
       # TODO better
       # integrate qt with gnome
