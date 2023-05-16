@@ -61,8 +61,8 @@ with pkgs; [
   jq # json query
   #pandoc
   ffmpeg
-  vscode-with-extensions
-  #nixos-conf-editor
+  #vscode-with-extensions
+  vscode
 
   # snowflakeOS apps
   # https://discourse.nixos.org/t/snowflakeos-creating-a-gui-focused-nixos-based-distro/21856
