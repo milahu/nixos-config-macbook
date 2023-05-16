@@ -55,7 +55,7 @@ rec {
     #"systemd.unified_cgroup_hierarchy=0" # ?
     # https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate
     # filefrag -v /var/swapfile | awk '$1=="0:" {print substr($4, 1, length($4)-2)}'
-    "resume_offset=28389376"
+    "resume_offset=13224121"
   ];
 
   boot.kernel.sysctl = {
