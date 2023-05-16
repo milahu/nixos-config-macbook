@@ -266,7 +266,7 @@
     # Forbid root login through SSH.
     settings.PermitRootLogin = "no";
     # Use keys only. Remove if you want to SSH using password (not recommended)
-    settings.PasswordAuthentication = false;
+    #settings.PasswordAuthentication = false;
   };
 
   # Enable ngrok client
