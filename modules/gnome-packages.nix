@@ -26,7 +26,7 @@ four-in-a-row
 #gdm # display manager
 geary # email
 gedit # text
-ghex
+ghex # hex editor
 gitg
 gnome-applets
 gnome-autoar
