@@ -67,6 +67,8 @@ with pkgs; [
   # snowflakeOS apps
   # https://discourse.nixos.org/t/snowflakeos-creating-a-gui-focused-nixos-based-distro/21856
   # https://snowflakeos.org/
+
+  nixos-conf-editor
   nix-software-center
 
   #nur.repos.mic92.hello-nur
