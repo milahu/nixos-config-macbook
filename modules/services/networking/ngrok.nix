@@ -23,20 +23,48 @@ in
       configFile = mkOption {
         type = types.str;
         default = "";
-        example = "/home/user/config./ngrok/ngrok.yml";
+        example = "/home/user/.config/ngrok/ngrok.yml";
         description = ''
           Path to ngrok.yml.
+
+          See also: https://ngrok.com/docs/ngrok-agent/config/
+
+          Example config:
+
+          ```yaml
+          # active clients: https://dashboard.ngrok.com/tunnels/agents
+          version: "2"
+          authtoken: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          update_check: false
+          metadata: "ngrok client on mymachine"
+          # active tunnels: https://dashboard.ngrok.com/cloud-edge/endpoints
+          tunnels:
+            web:
+              proto: http
+              addr: 80
+              metadata: "http tunnel on mymachine"
+            ssh:
+              proto: tcp
+              addr: 22
+              metadata: "ssh tunnel on mymachine"
+          ```
+
+        free account limitations:
+
+        > Your account is limited to 1 simultaneous ngrok agent session.
+        > You can run multiple tunnels on a single agent session using a configuration file.
+        > To learn more, see https://ngrok.com/docs/ngrok-agent/config/
         '';
       };
 
-      args = mkOption {
-        default = [];
-        type = types.listOf types.str;
-        example = literalExpression ''
-          [ "tcp" "22" ]
-        '';
-        description = lib.mdDoc ''
-          Command line arguments for ngrok.
+      logLevel = mkOption {
+        type = types.str;
+        default = "info";
+        example = "debug";
+        description = ''
+          values: debug, info, warn, error, crit
+
+          default: info
         '';
       };
 
@@ -61,6 +89,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    # https://github.com/vincenthsu/systemd-ngrok/blob/master/ngrok.service
     systemd.services.ngrok = {
       description = "ngrok client";
       after = [ "network.target" ];
@@ -68,13 +97,14 @@ in
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
-        ExecStart = [
-          #"" # this hides/overrides what's in the original entry
-          # TODO escape args for shell
-          "${cfg.package}/bin/ngrok --config ${cfg.configFile} ${lib.concatStringsSep " " cfg.args}"
-        ];
+        ExecStart = "${cfg.package}/bin/ngrok start --all --config ${cfg.configFile} --log stdout --log-level ${cfg.logLevel}";
+        ExecReload = "/bin/kill -HUP $MAINPID";
+        KillMode = "process";
+        IgnoreSIGPIPE = true;
+        Restart = "always";
+        RestartSec = 3;
+        Type = "simple";
       };
-
     };
 
     users.users = optionalAttrs (cfg.user == "ngrok") {

@@ -273,7 +273,6 @@
   services.ngrok = {
     enable = true;
     configFile = "/home/user/.config/ngrok/ngrok.yml";
-    args = [ "tcp" "22" ]; # SSH
     user = "user";
     group = "users";
   };
