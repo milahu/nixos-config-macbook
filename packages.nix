@@ -114,4 +114,12 @@ with pkgs; [
   # https://stackoverflow.com/questions/286419/how-to-build-a-dmg-mac-os-x-file-on-a-non-mac-platform
   hfsprogs # mkfs.hfsplus # apple filesystem
   cdrkit # genisoimage # generate dmg image files
+
+  gnome.polari # IRC chat
+  element-desktop # matrix chat
+  tdesktop # telegram chat
+  whatsapp-for-linux # facebook chat
+  discord
+
+  gnome.geary # email
 ]
