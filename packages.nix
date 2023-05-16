@@ -124,4 +124,6 @@ with pkgs; [
   discord
 
   gnome.geary # email
+
+  mmv # multi move
 ]
