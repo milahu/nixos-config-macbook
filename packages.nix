@@ -126,4 +126,7 @@ with pkgs; [
   gnome.geary # email
 
   mmv # multi move
+
+  google-chrome
+
 ]
