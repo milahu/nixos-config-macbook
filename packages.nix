@@ -27,6 +27,13 @@ let
     sha256 = "xiqF1mP8wFubdsAQ1BmfjzCgOD3YZf7EGWl9i69FTls=";
   }) {};
 
+  nix-editor = import (pkgs.fetchFromGitHub {
+    owner = "vlinkz";
+    repo = "nix-editor";
+    rev = "ab2a7e94ca176589c1e8236ce31cd89044e4818f";
+    sha256 = "eyLPtopt7lRvmRDJx7gSBYUtYGfOSVXarf0KbLbw/Sw=";
+  }) {};
+
 in
 
 with pkgs; [
@@ -72,6 +79,7 @@ with pkgs; [
 
   nixos-conf-editor
   nix-software-center
+  nix-editor
 
   #nur.repos.mic92.hello-nur
   #nur.repos.milahu.spotify-adblock # FIXME
