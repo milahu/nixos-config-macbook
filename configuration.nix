@@ -271,7 +271,7 @@
 
   # Enable ngrok client
   services.ngrok = {
-    enable = true;
+    #enable = true;
     configFile = "/home/user/.config/ngrok/ngrok.yml";
     user = "user";
     group = "users";
